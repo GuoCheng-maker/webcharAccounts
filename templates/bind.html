@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="width: 600px;margin: 0 auto">
+    <h1>请关注郭成测试服务号，并绑定个人用户（用于以后的消息提醒）</h1>
+    <div>
+        <h3>第一步：关注郭成微信服务号</h3>
+        <img style="height: 100px;width: 100px" src="{% static "img/jesi.jpg" %}">
+    </div>
+    <input type="button" value="下一步【获取绑定二维码】" onclick="getBindUserQcode()">
+    <div>
+        <h3>第二步：绑定个人账户</h3>
+        <div id="qrcode" style="width: 250px;height: 250px;background-color: white;margin: 100px auto;"></div>
+    </div>
+</div>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/jquery.qrcode.min.js" %}"></script>
+<script src="{% static "js/qrcode.js" %}"></script>
+<script>
+    function getBindUserQcode() {
+        $.ajax({
+            url: '/bind_qcode/',
+            type: 'GET',
+            success: function (result) {
+                console.log(result);
+                $('#qrcode').empty().qrcode({text: result.data});
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
